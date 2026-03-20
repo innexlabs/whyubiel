@@ -1,15 +1,23 @@
-## Hello Welcome to my profile, I'm Grayford. !
-Futuro dev Full Stack 
-<img width="35%" align="right"  alt="bielcortes" src="https://i.imgur.com/hxp9nxs.png" />  
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=whyubiel&show_icons=true&theme=radical)
+name: generate animation
 
-<div class="style">
-  <img width="6%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
-  <img width="8%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original-wordmark.svg" />
-  <img width="8%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original-wordmark.svg" />
-            
- </div>                        
-  
-  
- 
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
 
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Platane/snk@v3
+        with:
+          github_user_name: whyubiel
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+      - uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
